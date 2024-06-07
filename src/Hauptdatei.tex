@@ -1,0 +1,308 @@
+% Definition of the General Document Format
+\documentclass[a4paper,12pt,headsepline]{scrartcl}
+
+% Use Umlauts with UTF8
+\usepackage[utf8]{inputenc}
+
+% Variables
+\input{latex_einstellungen/variablen}
+
+% additional packages
+% Include graphics from PNG files
+\usepackage{graphicx}
+
+% Use German special characters and hyphenation
+\usepackage[english]{babel}
+
+% Include Euro symbol
+\usepackage[right]{eurosym}
+
+% Character encoding
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern}
+
+% Enable floating images
+%\usepackage{floatflt}
+
+% Enable multi-page tables
+\usepackage{longtable}
+
+% Support for fonts
+%\newcommand{\changefont}[3]{ 
+%\fontfamily{#1} \fontseries{#2} \fontshape{#3} \selectfont}
+
+% Package for page margins and setting margins
+\usepackage{geometry}
+\geometry{left=3.5cm, right=2cm, top=2.5cm, bottom=2cm}
+
+% Package for boxes in text
+\usepackage{fancybox}
+
+% Breaks long URLs "nicely"
+\usepackage[hyphens,obeyspaces,spaces]{url}
+
+% Package for text colors
+\usepackage{color}
+
+% Import mathematical symbols
+\usepackage{amssymb}
+\usepackage{wasysym}
+
+% Header on every page (old, centered)
+%\pagestyle{headings}
+\usepackage{xhfill}
+
+% Generates table of contents with cross-references to sections (PDF version)
+\usepackage[bookmarksnumbered,pdftitle={\titleDocument},hyperfootnotes=false]{hyperref}
+%\hypersetup{colorlinks, citecolor=red, linkcolor=blue, urlcolor=black}
+%\hypersetup{colorlinks, citecolor=black, linkcolor= black, urlcolor=black}
+% new headers with fancy package
+\usepackage{fancyhdr} % Load package
+\pagestyle{fancy} % Own page style
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[L]{\nouppercase{\leftmark}} % Left header
+\fancyhead[C]{} % Centered header
+\fancyhead[R]{\thepage} % Right header
+\renewcommand{\headrulewidth}{0.4pt} % Upper separator line
+%\fancyfoot[C]{\thepage} % Page number
+%\renewcommand{\footrulewidth}{0.4pt} % Lower separator line
+
+% for tables
+\usepackage{array}
+
+% Round brackets for citations
+%\usepackage[numbers,round]{natbib}
+
+% Citation style - Harvard method: Author abbreviation + Year
+\bibliographystyle{alphadin}
+
+% Disables the extra space that LaTeX usually inserts after a period.
+%\frenchspacing
+
+% Package for line spacing
+\usepackage{setspace}
+
+% for figure captions
+\usepackage{capt-of}
+
+% for index
+\usepackage{makeidx}
+
+% Configure the table of contents
+\usepackage{tocbasic}
+\DeclareTOCStyleEntries[
+  raggedentrytext,
+  numwidth=0pt,
+  numsep=1ex,
+  dynnumwidth,
+]{tocline}{chapter,section,subsection,subsubsection,paragraph,subparagraph}
+\DeclareTOCStyleEntries[
+  indent=0pt,
+  linefill=\TOCLineLeaderFill,
+]{tocline}{section,subsection,subsubsection,paragraph,subparagraph}
+
+
+% for listings
+\usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, keywordstyle=\color{black}\bfseries, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b}
+\lstset{language=java}
+
+% Create index
+\makeindex
+
+% Abbreviations
+\usepackage[english]{nomencl}
+\let\abbrev\nomenclature
+
+% Abbreviations LiveTex Version
+% Title of the abbreviations list
+\renewcommand{\nomname}{Abbreviations}
+% Distance between abbreviation and explanation
+\setlength{\nomlabelwidth}{.25\textwidth}
+% Space between abbreviation and explanation with dots
+\renewcommand{\nomlabel}[1]{#1 \dotfill}
+% Variation of the distance between the individual abbreviations
+\setlength{\nomitemsep}{-\parsep}
+% Create index with abbreviations
+\makenomenclature
+%\makeglossary
+
+% Abbreviations TeTEX Version
+% \usepackage[german]{nomencl}
+% \makenomenclature
+% %\makeglossary
+% \renewcommand{\nomname}{Abbreviations}
+% \AtBeginDocument{\setlength{\nomlabelwidth}{.25\columnwidth}}
+% \renewcommand{\nomlabel}[1]{#1 \dotfill}
+% \setlength{\nomitemsep}{-\parsep}
+
+% Optional: Prevent single lines at the beginning of a page (orphans)
+% \clubpenalty = 10000
+% Optional: Prevent single lines at the end of a page (widows)
+% \widowpenalty = 10000
+% \displaywidowpenalty = 10000
+
+\begin{document}
+% include hyphenation suggestions here
+\input{latex_einstellungen/trennung}
+
+% Use Helvetica font
+%\usepackage{helvet}
+%\renewcommand\familydefault{\sfdefault}
+
+% Blank page at the beginning
+%\thispagestyle{empty} % creates a page without header / footer
+%\mbox{}
+%\newpage
+
+% Title page %
+\input{latex_einstellungen/deckblatt}
+
+% Roman numeration
+\pagenumbering{roman}
+
+% 1.5 line spacing
+\onehalfspacing
+
+\newpage
+
+% Introduction / Abstract
+\thispagestyle{empty}
+\input{0_abstract}
+
+% Single line spacing
+\singlespacing
+
+\newpage
+% Start page numbering at table of contents
+\setcounter{page}{1}
+
+% Display table of contents
+\thispagestyle{empty}
+\tableofcontents
+
+\newpage
+% the list of figures
+% Version 1: Display list of figures WITH leading numbering
+\listoffigures
+% List of figures should appear in the table of contents
+\addcontentsline{toc}{section}{List of Figures}
+
+% Version 2: Display list of figures WITHOUT leading numbering
+%\begingroup
+%\renewcommand\numberline[1]{}
+%\listoffigures
+%\endgroup
+
+
+% the list of tables
+\newpage
+% \fancyhead[L]{List of Figures / Abbreviations} % Left header
+% Display list of tables
+\listoftables
+% List of tables should appear in the table of contents
+\addcontentsline{toc}{section}{List of Tables}
+
+%% WORKAROUND for Listings
+%\makeatletter% --> De-TeX-FAQ
+%\renewcommand*{\lstlistoflistings}{%
+%  \begingroup
+%    \if@twocolumn
+%      \@restonecoltrue\onecolumn
+%    \else
+%      \@restonecolfalse
+%    \fi
+%    \lol@heading
+%    \setlength{\parskip}{\z@}%
+%    \setlength{\parindent}{\z@}%
+%    \setlength{\parfillskip}{\z@ \@plus 1fil}%
+%    \@starttoc{lol}%
+%    \if@restonecol\twocolumn\fi
+%  \endgroup
+%}
+%\makeatother% --> \makeatletter
+% the list of listings
+\newpage
+\fancyhead[L]{List of Listings} % Left header
+\renewcommand{\lstlistlistingname}{List of Listings}
+\lstlistoflistings
+% List of listings should appear in the table of contents
+\addcontentsline{toc}{section}{List of Listings}
+%%%%
+
+% the list of abbreviations
+\newpage
+% display the list of abbreviations
+\fancyhead[L]{Abbreviations} % Left header
+\input{latex_einstellungen/abkuezungen/abkuerzungen}
+\printnomenclature[3cm]
+% List of abbreviations should appear in the table of contents
+\addcontentsline{toc}{section}{List of Abbreviations}
+
+
+%%%%%%% INTRODUCTION %%%%%%%%%%%%
+\newpage
+\fancyhead[L]{\nouppercase{\leftmark}} % Left header
+
+% 1.5 line spacing
+\onehalfspacing
+
+% Arabic page numbering from here
+\pagenumbering{arabic}
+
+% Alternative inclusion of the abstract in chapter "0" if desired
+%\setcounter{section}{-1}
+%\setcounter{page}{0}
+
+% Option: inclusion of abstract
+%\input{0_abstract}
+%\newpage
+
+% individual chapters are included here
+\input{1_einleitung}
+\newpage
+
+\input{2_kap1}
+\newpage
+
+\input{3_kap2}
+\newpage
+
+% further chapters can be created and entered here
+% ....
+
+\input{4_abschluss}
+\newpage
+
+
+
+% Single line spacing
+\singlespacing
+% Bibliography should appear in the table of contents
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Bibliography}
+% Display bibliography
+\renewcommand\refname{Bibliography}
+\bibliography{Hauptdatei}
+
+%% Index should be called Keyword Index
+% \newpage
+% % Keyword index should appear in the table of contents
+% \addcontentsline{toc}{section}{Keyword Index}
+% \renewcommand{\indexname}{Keyword Index}
+% % Display keyword index
+% \printindex
+
+\onehalfspacing
+% possibly appendix
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{Appendix}
+\fancyhead[L]{Appendix} % Left header
+\input{anhang/anhang}
+\newpage
+\thispagestyle{empty}
+\input{5_eigenstaendigkeit}
+\end{document}
